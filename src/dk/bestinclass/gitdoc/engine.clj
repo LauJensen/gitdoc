@@ -187,7 +187,7 @@
                              (apply str
                                         (map #(str (:title %) \newline ) git-tree)))))
 
-(defn main
+(defn main-qt
   []
   (let 
       [  ui (QUiLoader/load (QFile. "/home/lau/coding/lisp/projects/lbj/core/git/git.ui")) ]
@@ -201,4 +201,3 @@
 
 
 (init)
-(main)

@@ -16,3 +16,6 @@
      "gitdoc/engine"))
 
 
+(defn -main
+  []
+  (main-qt))
