@@ -190,7 +190,7 @@
 (defn main-qt
   []
   (let 
-      [  ui (QUiLoader/load (QFile. "/home/lau/coding/lisp/projects/lbj/core/git/git.ui")) ]
+      [  ui (QUiLoader/load (QFile. "/home/lau/coding/lisp/projects/gitdoc/git.ui")) ]
     ($set :ui ui)
     ($set :commits (getObject "commitView"))
     ($set :path (. (getObject "pathEdit") text))
@@ -200,4 +200,4 @@
     (QApplication/exec)))
 
 
-(init)
+
