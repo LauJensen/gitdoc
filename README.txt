@@ -28,5 +28,28 @@ GitDoc aims to accomplish two things.
 	Chouser has also provided, as he always does, quality sparring and source code snippets that may of may not appear
 	in this distribution.
 
+TO USE:
+
+First, download clojure from Clojure.org, then modify the path to the UI in
+(main-qt) in engine.clj.
+
+
+Linux)
+Then from the CLI:
+
+$ java -cp clojure.jar:/path/to/gitdoc/src/ clojure.lang.Repl
+
+user> (use 'dk.bestinclass.gitdoc)
+nil
+user> (in-ns 'dk.bestinclass.gitdoc)
+nil
+dk.bestinclass.gitdoc> (init)
+nil
+dk.bestinclass.gitdoc> (main-qt)
+
+Windows)
+1) Install Linux
+2) Follow recommendations above
+
 /Lau B. Jensen/
 
