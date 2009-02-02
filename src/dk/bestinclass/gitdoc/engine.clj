@@ -106,15 +106,6 @@
 ;;=========== GIT  ===========
 
 
-(defn stripHashes
-  " Obsolete "
-  [log]
-  (remove nil?
-          (for [row (.split log "commit ")]
-            (let [istart  (.indexOf row "\n")]
-              (when (pos? istart)
-                (.substring row 0 istart))))))
-
 (defn build-struct
   " Given a commit, this will coarse the elements into a struct-map "
   [commit]
@@ -153,7 +144,7 @@
      (slot/slot 0 #(do
                      ($set :path (. (getObject "pathEdit") text))
                      (let [ textBuffer (getObject "statView")
-                           git-tree   (map build-struct (get-log))
+                           git-tree   (pmap build-struct (get-log))
                            titles     (map (fn [_] (:title _)) git-tree) ]
                        (initCommitView titles)
                        (initDocumentation git-tree)))))
