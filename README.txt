@@ -14,11 +14,11 @@ GitDoc was booted on 1. February 2009.
 
 GitDoc aims to accomplish two things.
 
-1)  To provide a flexible frontend, to a solid backend which parses logs for git repositories.
+1)  To provide a flexible frontend, to a solid backend which parses logs from git repositories.
    	The flexibility is needed, to enable the user to make use of his own naming conventions, in order
 	to produce quality documentation solely from Git logs.
 
-2)	To be the first project using a consolidated port of Jambi to Clojure.	
+2)	To be the first project using a consolidated set of bindings for Jambi to Clojure.	
 	Jambi is the JVM port of the standard Qt libs.
 
 	Much of the hard work in porting Jambi was intially made by Jamie Brandon, a lone gunman who appeared
@@ -50,6 +50,9 @@ dk.bestinclass.gitdoc> (main-qt)
 Windows)
 1) Install Linux
 2) Follow recommendations above
+
+
+
 
 /Lau B. Jensen/
 
