@@ -24,6 +24,7 @@
 (defstruct struct-filemod :name :insertions :deletions)
 (defstruct struct-commit  :title :hash :author :date :description :files)
 
+(def git-log nil)
 (def *global-variables* (ref (hash-map)))
 (def *commits*          (ref (hash-map)))
 
@@ -124,17 +125,36 @@
                               :date  date   :description description :files files)))
     
          
+(def *sh-dir* nil)
+
+(defn- stream-seq
+  "Takes an InputStream and returns a lazy seq of integers from the stream.
+
+   (taken from Contrib)"
+  [stream]
+  (take-while #(>= % 0) (repeatedly #(.read stream))))
 
 (defn get-log
   " Will retrieve a log from a given directory and return a sequence of the commits "
   []
-  (let [ gitdir ($get :path)
-         gitlog (with-sh-dir gitdir (sh "git-log" "--numstat")) ]
-    (map #(apply concat %)
-         (partition 2
-                    (partition-by #(re-seq #"^commit .*" %)
-                                  (line-seq (BufferedReader.
-                                             (StringReader. gitlog))))))))
+  (let [ gitdir  ($get :path) 
+         pr      (.exec (Runtime/getRuntime)
+                        "git log --numstat"
+                        nil
+                        (java.io.File. gitdir)) ]
+    (pmap #(apply concat %)
+          (partition 2
+                     (partition-by #(re-seq #"^commit .*" %)
+                                   (line-seq (BufferedReader.
+                                              (StringReader.
+                                               (apply str
+                                                      (pmap char (stream-seq
+                                                                  (.getInputStream pr))))))))))))
+
+(defn getCommit
+  [idx]
+  (when git-log
+    (nth git-log idx)))
 
 ;;=========== SLOTS/EVENTS ===========
 
@@ -146,9 +166,21 @@
                      (let [ textBuffer (getObject "statView")
                            git-tree   (pmap build-struct (get-log))
                            titles     (map (fn [_] (:title _)) git-tree) ]
+                       (def git-log git-tree)
                        (initCommitView titles)
                        (initDocumentation git-tree)))))
-                     
+
+(def commitView-clicked
+     (slot/slot 1
+                #(let [ row        (. % row)
+                        statView   (getObject "statView")
+                        titleLabel (getObject "titleLabel")
+                        thisCommit (getCommit row)]
+                   (. titleLabel (setText (:title thisCommit)))
+                   (. statView
+                      (setText (:description (getCommit row)))))))
+                      
+                   
 
 ;;=========== UI ===========
 
@@ -187,7 +219,8 @@
     ($set :path (. (getObject "pathEdit") text))
     (.show ui)
     (QApplication/setStyle (QStyleFactory/create "Plastique"))
-    (slot/connect (. (getObject "runButton") clicked) run-clicked)  
+    (slot/connect (. (getObject "runButton") clicked) run-clicked)
+    (slot/connect (. (getObject "commitView") clicked) commitView-clicked)
     (QApplication/exec)))
 
 

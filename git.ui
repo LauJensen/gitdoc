@@ -18,7 +18,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>281</width>
+      <width>351</width>
       <height>571</height>
      </rect>
     </property>
@@ -29,30 +29,27 @@
         <font>
          <family>DejaVu Sans Mono</family>
          <pointsize>8</pointsize>
+         <stylestrategy>PreferAntialias</stylestrategy>
         </font>
+       </property>
+       <property name="autoFillBackground" >
+        <bool>true</bool>
+       </property>
+       <property name="autoScroll" >
+        <bool>false</bool>
+       </property>
+       <property name="alternatingRowColors" >
+        <bool>true</bool>
        </property>
       </widget>
      </item>
     </layout>
    </widget>
-   <widget class="Line" name="line" >
-    <property name="geometry" >
-     <rect>
-      <x>320</x>
-      <y>490</y>
-      <width>650</width>
-      <height>3</height>
-     </rect>
-    </property>
-    <property name="orientation" >
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
    <widget class="QSplitter" name="splitter" >
     <property name="geometry" >
      <rect>
-      <x>430</x>
-      <y>510</y>
+      <x>580</x>
+      <y>530</y>
       <width>451</width>
       <height>26</height>
      </rect>
@@ -74,15 +71,34 @@
    <widget class="QWidget" name="horizontalLayoutWidget_2" >
     <property name="geometry" >
      <rect>
-      <x>290</x>
-      <y>0</y>
-      <width>741</width>
-      <height>471</height>
+      <x>360</x>
+      <y>40</y>
+      <width>671</width>
+      <height>341</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_2" >
      <item>
       <widget class="QTextEdit" name="statView" />
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget" >
+    <property name="geometry" >
+     <rect>
+      <x>360</x>
+      <y>0</y>
+      <width>671</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout" >
+     <item>
+      <widget class="QLabel" name="titleLabel" >
+       <property name="text" >
+        <string/>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>

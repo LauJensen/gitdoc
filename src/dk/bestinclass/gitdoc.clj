@@ -11,7 +11,6 @@
 
 (ns dk.bestinclass.gitdoc
   (:load
-     "gitdoc/shell_out"
      "gitdoc/slot"
      "gitdoc/engine"))
 
